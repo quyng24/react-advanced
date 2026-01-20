@@ -1,4 +1,6 @@
-const ProductList = ({data}) => {
+import React from "react";
+
+const ProductList = React.memo(({data}) => {
     return (
         <div style={{minHeight: "300px"}}>
             <ul style={{textAlign: 'start', display: 'flex', flexDirection: 'column', gap: 10,}}>
@@ -8,5 +10,5 @@ const ProductList = ({data}) => {
             </ul>
         </div>
     )
-};
+});
 export default ProductList;

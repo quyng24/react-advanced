@@ -4,7 +4,8 @@ import { searchProducts } from "../api/productApi";
 const initialState = {
     data: [],
     loading: false,
-    error: null
+    error: null,
+    hasMore: true
 }
 
 const searchReducer = (state, action) => {
@@ -13,8 +14,16 @@ const searchReducer = (state, action) => {
             return {...initialState};
         case 'START':
             return {...state, loading: true, error: null}
-        case 'SUCCESS':
-            return {...state, loading: false, data: action.payload};
+        case "SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                data:
+                action.page === 1
+                    ? action.payload
+                    : [...state.data, ...action.payload],
+                hasMore: action.payload.length > 0,
+            };
         case 'ERROR':
             return {...state, loading: false, error: action.payload};
         default:
@@ -40,7 +49,7 @@ export const useProductSearch = (query, page) => {
 
         searchProducts(query, page, signal)
         .then(res => {
-            if(!signal.aborted) dispatch({type: 'SUCCESS', payload: res.products});
+            if(!signal.aborted) dispatch({type: 'SUCCESS', payload: res.products, page});
         })
         .catch(err => {
             if(err.name === "AbortError") return;
