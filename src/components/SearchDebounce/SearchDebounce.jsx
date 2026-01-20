@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SearchInput from "./SearchInput";
-import ProductList from "./ProductList";
-import Pagination from "./Pagination";
+import SearchInput from "../common/SearchInput";
+import ProductList from "../common/ProductList";
+import Pagination from "../common/Pagination";
 import { useDebounce } from "../../hooks/useDenoumce";
 import { searchProducts } from "../../api/productApi";
 
@@ -21,7 +21,6 @@ const SearchDebounce = () => {
                 setLoading(true);
                 setError(null);
                 const res = await searchProducts(debouncedQuery, page, controller.signal);
-                console.log(res)
                 setData(res.products)
             } catch (error) {
                 if(error.name !== "AbortError") setError(error.message);
@@ -33,7 +32,7 @@ const SearchDebounce = () => {
         return () => controller.abort();
     }, [debouncedQuery, page])
     return (
-        <div style={{display: 'flex', flexDirection: 'column', gap: 20}}>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 20, border: '1px solid #ccc', padding: 20}}>
             <h2 style={{fontWeight: "bold", fontSize: 40, color: '#50baf7'}}>Search Debounce</h2>
             <SearchInput value={query} setQuery={setQuery} />
             <div className="flex flex-col items-center text-center">
