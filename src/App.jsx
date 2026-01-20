@@ -3,6 +3,7 @@ import Parent from './components/ReactPerformance/ParentTest'
 import CountPerformance from './components/ReactPerformance/CountPerformance'
 import SearchDebounce from './components/SearchDebounce/SearchDebounce'
 import DashboardProduct from './components/DashboardProduct/DashboardProduct'
+import Vitualization from './components/Vitualization/Vitualization'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <SearchDebounce/>
         <CountPerformance/>
         <DashboardProduct/>
+        <Vitualization/>
       </div>
     </>
   )
